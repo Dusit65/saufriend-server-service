@@ -13,7 +13,10 @@ exports.createMyfriend = async (req, res) => {
     //ตัวแปร
     let data = {
       ...req.body,
-      myfriendImage: req.file.path.replace("images\\myfriend\\", ""),
+      //เช็คว่ามีไฟล์รูปภาพหรือไม่
+      myfriendImage: req.file
+        ? req.file.path.replace("images\myfriend\", ")
+        : "",
     };
 
     const result = await Myfriend.create(data);

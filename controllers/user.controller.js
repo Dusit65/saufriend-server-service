@@ -11,7 +11,10 @@ exports.createUser = async (req, res) => {
     //ตัวแปร
     let data = {
       ...req.body,
-      userImage: req.file ? req.file.path.replace("images\\user\\", "") : "",
+      //เช็คว่ามีไฟล์รูปภาพหรือไม่
+      userImage: req.file
+        ? req.file.path.replace("images\\user\", ")
+        : "",
     };
     const result = await User.create(data);
     res.status(201).json({
