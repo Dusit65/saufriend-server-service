@@ -15,7 +15,7 @@ exports.createMyfriend = async (req, res) => {
       ...req.body,
       //เช็คว่ามีไฟล์รูปภาพหรือไม่
       myfriendImage: req.file
-        ? req.file.path.replace("images\myfriend\", ")
+        ? req.file.path.replace("images\\myfriend\\", "")
         : "",
     };
 
@@ -132,31 +132,30 @@ exports.deleteMyfriend = async (req, res) => {
 
   //Myfriend Image upload function================================================
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, "images/myfriend");
-    },
-    filename: function (req, file, cb) {
-      cb(
-        null,
-        "myfriend_" +
-          Math.floor(Math.random() * Date.now()) +
-          path.extname(file.originalname)
-      );
-    },
-  });
-  exports.uploadMyfriend = multer({
-    storage: storage,
-    limits: {
-      fileSize: 1000000,
-    },
-    fileFilter: (req, file, cb) => {
-      const fileTypes = /jpeg|jpg|png|gif/;
-      const mimetype = fileTypes.test(file.mimetype);
-      const extname = fileTypes.test(path.extname(file.originalname));
-      if (mimetype && extname) {
-        return cb(null, true);
-      }
-      cb("Error: Images Only!");
-    },
-  }).single("myfriendImage");
-  
+  destination: function (req, file, cb) {
+    cb(null, "images/myfriend");
+  },
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      "myfriend_" +
+        Math.floor(Math.random() * Date.now()) +
+        path.extname(file.originalname)
+    );
+  },
+});
+exports.uploadMyfriend = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1000000,
+  },
+  fileFilter: (req, file, cb) => {
+    const fileTypes = /jpeg|jpg|png|gif/;
+    const mimetype = fileTypes.test(file.mimetype);
+    const extname = fileTypes.test(path.extname(file.originalname));
+    if (mimetype && extname) {
+      return cb(null, true);
+    }
+    cb("Error: Images Only!");
+  },
+}).single("myfriendImage");

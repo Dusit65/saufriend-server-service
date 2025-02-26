@@ -13,10 +13,12 @@ exports.createUser = async (req, res) => {
       ...req.body,
       //เช็คว่ามีไฟล์รูปภาพหรือไม่
       userImage: req.file
-        ? req.file.path.replace("images\\user\", ")
+        ? req.file.path.replace("images\\user\\", "")
         : "",
     };
+
     const result = await User.create(data);
+
     res.status(201).json({
       message: "User created successfully",
       data: result,
@@ -161,3 +163,4 @@ exports.uploadUser = multer({
     cb("Error: Images Only!");
   },
 }).single("userImage");
+
