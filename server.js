@@ -14,6 +14,8 @@ app.use(bodyParser.json());//adjust json data
 app.use(cors());//allow access from any domain
 app.use("/user", userRoute); //use router module
 app.use("/myfriend", myfriendRoute);
+app.use("/images/user", express.static("images/user"));
+app.use("/images/myfriend", express.static("images/myfriend"));
 
 //test call web server
 app.get("/", (req, res) => {
