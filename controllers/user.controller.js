@@ -85,7 +85,14 @@ exports.editUser = async (req, res) => {
       delete data.userImage;
     }
 
-    const result = await User.update(data, {
+    let result = await User.update(data, {
+      where: {
+        userId: req.params.userId,
+      },
+    });
+    
+    //update and find data
+     result = await User.findOne(data, {
       where: {
         userId: req.params.userId,
       },

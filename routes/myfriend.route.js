@@ -9,7 +9,8 @@ const router = express.Router();
 //Routing is based on RESTful API principles
 //GET = ค้นหา ตรวจสอบ ดึง ดู, POST = เพิ่ม, PUT = แก้ไข, DELETE = ลบ
 router.post("/", myfriendCtrl.uploadMyfriend, myfriendCtrl.createMyfriend);
-router.get("/:userId", myfriendCtrl.getAllMyfriend);
+router.get("/:userId", myfriendCtrl.getAllMyFriend);
+router.get("/one/:myfriendId", myfriendCtrl.getMyFriend); //get selected myfriend
 router.put("/:myfriendId", myfriendCtrl.uploadMyfriend, myfriendCtrl.editMyfriend);
 router.delete("/:myfriendId", myfriendCtrl.deleteMyfriend);
 

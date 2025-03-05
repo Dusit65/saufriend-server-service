@@ -33,31 +33,55 @@ exports.createMyfriend = async (req, res) => {
 };
 
 //func get all travel in myfriend_tb ====================================================
-exports.getAllMyfriend = async (req, res) => {
-    try {
-      const result = await Myfriend.findAll({
-        where: {
-          myfriendId: req.params.myfriendId,
-        },
+exports.getAllMyFriend = async (req, res) => {
+  try {
+    const result = await Myfriend.findAll({
+      where: {
+        userId: req.params.userId,
+      },
+    });
+    if (result) {
+      res.status(200).json({
+        message: "MyFriend get successfully",
+        data: result,
       });
-      if (result) {
-        res.status(200).json({
-          message: "Myfriend get successfully",
-          data: result,
-        });
-      } else {
-        res.status(404).json({
-          message: "Myfriend get failed",
-          data: result,
-        });
-      }
-    } catch (error) {
-      res.status(500).json({
-        message: error.message,
+    } else {
+      res.status(404).json({
+        message: "MyFriend get failed",
+        data: result,
       });
     }
-  };
-
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+//func get Myfriend in myfriend_tb (Selected One)++++++++++++++++++++++++++++++++++++++++++++
+exports.getMyFriend = async (req, res) => {
+  try {
+    const result = await Myfriend.findOne({
+      where: {
+        myfriendId: req.params.myfriendId,
+      },
+    });
+    if (result) {
+      res.status(200).json({
+        message: "Get this myfriendId successfully",
+        data: result,
+      });
+    } else {
+      res.status(404).json({
+        message: "Get this myfriendId failed",
+        data: result,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+}
   //func edit myfriend in myfriend_tb ====================================================
 exports.editMyfriend = async (req, res) => {
     try {
